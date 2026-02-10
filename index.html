@@ -19,15 +19,30 @@
       color: #fff;
       text-align: center;
       overflow: hidden;
+      position: relative;
+    }
+
+    /* Floating emojis */
+    .flower {
+      position: absolute;
+      font-size: 2rem;
+      animation: floatUp linear infinite;
+      user-select: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
     }
 
     .card {
       padding: 30px;
       max-width: 90%;
+      z-index: 10;
     }
 
     h1 {
-      font-size: 2.5rem; /* big on phone */
+      font-size: 2.4rem; /* question font */
       margin-bottom: 30px;
     }
 
@@ -37,13 +52,13 @@
     }
 
     button {
-      font-size: 1.6rem; /* big text */
+      font-size: 1.5rem; /* button font */
       padding: 15px 30px;
       border: none;
       border-radius: 40px;
       cursor: pointer;
       position: absolute;
-      transition: transform 0.2s;
+      transition: transform 0.1s;
     }
 
     .yes {
@@ -64,35 +79,49 @@
       font-size: 1.8rem;
       margin-top: 30px;
       display: none;
-      color: #800000; /* optional darker text for contrast */
+      color: #800000;
     }
   </style>
 </head>
 
 <body>
   <div class="card">
-    <h1>Hey there, Will you be my Valentine? 💌🤍</h1>
+    <h1>𝐻𝑒𝑦 𝑡ℎ𝑒𝑟𝑒, 𝑊𝑖𝑙𝑙 𝑦𝑜𝑢 𝑏𝑒 𝑚𝑦 𝑣𝑎𝑙𝑒𝑛𝑡𝑖𝑛𝑒? 💌🤍</h1>
 
     <div class="buttons">
-      <button class="yes" onclick="sayYes()">YES</button>
-      <button class="no" onmouseover="moveNo()">NO 💔</button>
+      <button class="yes" onclick="sayYes()">YES🤍</button>
+      <button class="no" onmousemove="moveNo()">NO 💔</button>
     </div>
 
     <div class="message" id="message">
-      Woah… you said YES, babe! This Valentine, my heart belongs entirely to you 💐🤍
+      𝑊𝑜𝑎ℎ… 𝑦𝑜𝑢 𝑠𝑎𝑖𝑑 𝑌𝐸𝑆, 𝑏𝑎𝑏𝑒! 𝑇ℎ𝑖𝑠 𝑉𝑎𝑙𝑒𝑛𝑡𝑖𝑛𝑒, 𝑚𝑦 ℎ𝑒𝑎𝑟𝑡 𝑏𝑒𝑙𝑜𝑛𝑔𝑠 𝑒𝑛𝑡𝑖𝑟𝑒𝑙𝑦 𝑡𝑜 𝑦𝑜𝑢 💐🤍
     </div>
   </div>
 
   <script>
+    // NO button move
     function moveNo() {
       const noBtn = document.querySelector('.no');
-      const x = Math.random() * 200 - 100; // horizontal random
-      const y = Math.random() * 80 - 40;   // vertical random
+      const x = Math.random() * 300 - 150;
+      const y = Math.random() * 150 - 75;
       noBtn.style.transform = `translate(${x}px, ${y}px)`;
     }
 
+    // YES button message
     function sayYes() {
       document.getElementById('message').style.display = 'block';
+    }
+
+    // Add floating flowers 🌸🌷
+    const flowers = ['🌸','🌷','🌸','🌷','🌸'];
+    for(let i=0;i<flowers.length;i++){
+      const span = document.createElement('span');
+      span.className = 'flower';
+      span.innerText = flowers[i];
+      span.style.left = Math.random()*100 + 'vw';
+      span.style.fontSize = (Math.random()*30 + 20) + 'px';
+      span.style.animationDuration = (Math.random()*5 + 5) + 's';
+      document.body.appendChild(span);
     }
   </script>
 </body>
